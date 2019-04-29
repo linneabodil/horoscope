@@ -1,0 +1,61 @@
+body {
+  background: url("../img/background.jpg") Azure;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  font-family: "Lora";
+
+  .container {
+    background: rgba($color: WhiteSmoke, $alpha: .5);
+    margin-top: 3rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .inputs {
+      width: 80%;
+      margin: 1rem 0;
+    }
+
+    label {
+      font-family: "Open Sans";
+    }
+    input {
+      appearance: none;
+      -webkit-apperance: none;
+      border: none;
+      border-radius: 3px;
+      padding: .75rem;
+      font-family: "Open Sans";
+      font-size: .8rem;
+    }
+
+    #sign {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      transition: all .5s ease;
+
+      img {
+        width: 100%;
+        padding: 2rem 2rem 0 2rem;
+        box-sizing: border-box;
+      }
+    }
+  }
+
+  a {
+    display: inline-block;
+    background: #000E49;
+    color: White;
+    margin: .25rem;
+    padding: .75rem;
+    text-decoration: none;
+    font-size: .9rem;
+    border-radius: 3px;
+  }
+}
