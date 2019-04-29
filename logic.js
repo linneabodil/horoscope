@@ -12,29 +12,12 @@ function makeRequest(url, method, formdata, callback) {
   })
 }
 
-/// get, visa stjärntecknet som ligger i session om inte tom annars log: false
-function getHoroscope() {
-
-  fetch("viewHoroscope.php", {
-    method: "GET",
-  }).then((data) => {
-    return data.json()
-  }).then((result) => {
-    console.log(result)
-    printHoroscope(result[0])
-  }).catch((err) => {
-    console.error(err)
-  })
-
-}
-
-/// save, om det inte finns något i session annars log: false
-function saveHoroscope() {
-  console.log("Save, plz.")
+/// get birthdate
+function getDate() {
   var input = document.getElementById("birthDate").value;
   var date = input.slice(5)
 
-  // för att fixa årtalet för personer födda runt nyår
+  /// for the capricorns
   if (date.slice(0,2) == "01") {
     if (date.slice(3,6) <= 19) {
       var finalDate = "2020-" + date;
@@ -46,24 +29,52 @@ function saveHoroscope() {
   else {
     var finalDate = "2019-" + date;
   }
+  return finalDate;
+}
 
-  var request = new FormData()
-  request.append("action", "save")
-  request.append("date", finalDate)
+/// get horoscope from session, then print
+function getHoroscope() {
 
-  makeRequest("addHoroscope.php", "POST", request, (response) => {
-    getHoroscope()
+  fetch("viewHoroscope.php", {
+    method: "GET",
+  }).then((data) => {
+    return data.json()
+  }).then((result) => {
+    printHoroscope(result[0])
+  }).catch((err) => {
+    console.error(err)
   })
 }
 
-/// update, om session inte är tom annars log: false
-function updateHoroscope() {
-  console.log("Gimme new, update.")
+/// if session is empty, put horoscope in session
+function saveHoroscope() {
+  var date = getDate();
+
+  var request = new FormData()
+  request.append("action", "save")
+  request.append("date", date)
+
+  makeRequest("addHoroscope.php", "POST", request, (response) => {
+    getHoroscope();
+  })
+  document.location.reload(true);
 }
 
-/// delete, om det finns något i session annars log: false
+/// insert new horoscope into session
+function updateHoroscope() {
+  var date = getDate();
+
+  var request = new FormData()
+  request.append("action", "update")
+  request.append("date", date)
+
+  makeRequest("updateHoroscope.php", "POST", request, (response) => {
+    getHoroscope();
+  })
+}
+
+/// delete horoscope from session
 function deleteHoroscope() {
-  console.log("Take it away, delete.")
 
   fetch("deleteHoroscope.php", {
     method: "DELETE",
@@ -71,12 +82,12 @@ function deleteHoroscope() {
     console.error(err)
   })
 
-  getHoroscope()
+  getHoroscope();
+  document.location.reload(true);
 }
 
-/// print
+/// print horoscope
 function printHoroscope(sign) {
-
   if(sign != undefined) {
     var sign = sign.horoscopeSign
     var container = document.getElementById("sign")
@@ -90,11 +101,11 @@ function printHoroscope(sign) {
     signName.innerHTML = "Your zodiac sign is: " + sign
     container.append(signName)
   }
-  /// om det inte finns något horoskop sparat, töm diven
+  /// if there is no horoscope in session, clear div
   else {
     var container = document.getElementById("sign")
     container.innerHTML = ""
   }
 }
 
-getHoroscope()
+getHoroscope();

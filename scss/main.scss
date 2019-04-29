@@ -1,14 +1,16 @@
 body {
-  background: url("../img/background.jpg") Azure;
+  background: url("../img/background.jpg") WhiteSmoke;
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
   background-position: center;
   display: flex;
   justify-content: center;
+  margin: 0;
   font-family: "Lora";
 
   .container {
+    min-width: 500px;
     background: rgba($color: WhiteSmoke, $alpha: .5);
     margin-top: 3rem;
     padding: 1rem;
@@ -16,22 +18,29 @@ body {
     flex-direction: column;
     align-items: center;
 
+    h1 {
+      margin: 1.5rem 0 .8rem 0;
+    }
+
     .inputs {
-      width: 80%;
+      display: flex;
+      flex-direction: column;
       margin: 1rem 0;
     }
 
     label {
+      margin: .25rem 0;
       font-family: "Open Sans";
+      font-weight: bold;
     }
     input {
-      appearance: none;
-      -webkit-apperance: none;
+      background: rgba($color: WhiteSmoke, $alpha: .8);
       border: none;
       border-radius: 3px;
-      padding: .75rem;
+      padding: .5rem;
+      width: 150px;
       font-family: "Open Sans";
-      font-size: .8rem;
+      font-size: 1rem;
     }
 
     #sign {
@@ -57,5 +66,16 @@ body {
     text-decoration: none;
     font-size: .9rem;
     border-radius: 3px;
+  }
+
+  @media screen and (max-width: 400px) {
+    body {
+
+      .container {
+        width: 70vw;
+        margin: auto;
+        padding: 0;
+      }
+    }
   }
 }

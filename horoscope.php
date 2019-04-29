@@ -8,7 +8,7 @@
       $this->database = new Database();
     }
 
-    // räkna ut vilket stjärntecken man har
+    // check what sign the date belongs to
     public function calcHoroscope($date) {
       $query = $this->database->connection->prepare(
         "SELECT horoscopeSign
@@ -24,9 +24,13 @@
       return $result;
     }
 
-    // spara i session
+    // save in session
     public function saveHoroscope($sign) {
       if(!isset($_SESSION["horoscope"])) {
+        $_SESSION["horoscope"] = $sign;
+      }
+      else {
+        unset($_SESSION["horoscope"]);
         $_SESSION["horoscope"] = $sign;
       }
     }

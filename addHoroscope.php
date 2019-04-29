@@ -9,10 +9,13 @@
 
           $horoscope = new Horoscope();
           $result = $horoscope->calcHoroscope($date);
-        //  $result = json_encode($databaseData);
 
           if(!isset($_SESSION["horoscope"])) {
             $save = $horoscope->saveHoroscope($result);
+          }
+          else {
+            echo json_encode(false);
+            exit;
           }
 
           echo json_encode(true);
@@ -24,6 +27,5 @@
         echo json_encode($error->getMessage());
       }
     }
-
 
 ?>
